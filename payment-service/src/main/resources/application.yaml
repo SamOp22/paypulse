@@ -1,3 +1,9 @@
+app:
+  jwt:
+    issuer: paypulse-payment-service
+    secret-base64: ${PAYPULSE_JWT_SECRET}
+    access-token-minutes: 30
+
 spring:
   application:
     name: payment-service
