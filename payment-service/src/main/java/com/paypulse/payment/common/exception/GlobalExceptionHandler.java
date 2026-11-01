@@ -18,37 +18,52 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleDuplicateMerchant(
             MerchantAlreadyExistsException ex) {
 
-        return createProblem(
-                HttpStatus.CONFLICT,
-                ex.getMessage()
-        );
+        return problem(HttpStatus.CONFLICT, ex.getMessage());
     }
 
     @ExceptionHandler(MerchantNotFoundException.class)
     public ProblemDetail handleMerchantNotFound(
             MerchantNotFoundException ex) {
 
-        return createProblem(
-                HttpStatus.NOT_FOUND,
-                ex.getMessage()
-        );
+        return problem(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(PaymentNotFoundException.class)
+    public ProblemDetail handlePaymentNotFound(
+            PaymentNotFoundException ex) {
+
+        return problem(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(IdempotencyConflictException.class)
+    public ProblemDetail handleIdempotencyConflict(
+            IdempotencyConflictException ex) {
+
+        return problem(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidIdempotencyKeyException.class)
+    public ProblemDetail handleInvalidIdempotencyKey(
+            InvalidIdempotencyKeyException ex) {
+
+        return problem(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ProblemDetail handleBadCredentials(
             BadCredentialsException ex) {
 
-        return createProblem(
+        return problem(
                 HttpStatus.UNAUTHORIZED,
                 "Invalid email or password"
         );
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ProblemDetail handleDatabaseConflict(
+    public ProblemDetail handleDataConflict(
             DataIntegrityViolationException ex) {
 
-        return createProblem(
+        return problem(
                 HttpStatus.CONFLICT,
                 "The request conflicts with existing data"
         );
@@ -68,21 +83,19 @@ public class GlobalExceptionHandler {
                 )
                 .orElse("Invalid request");
 
-        return createProblem(
-                HttpStatus.BAD_REQUEST,
-                message
-        );
+        return problem(HttpStatus.BAD_REQUEST, message);
     }
 
-    private ProblemDetail createProblem(
+    private ProblemDetail problem(
             HttpStatus status,
-            String message) {
+            String message
+    ) {
 
-        ProblemDetail problem =
+        ProblemDetail detail =
                 ProblemDetail.forStatusAndDetail(status, message);
 
-        problem.setTitle(status.getReasonPhrase());
+        detail.setTitle(status.getReasonPhrase());
 
-        return problem;
+        return detail;
     }
 }
