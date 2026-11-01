@@ -2,6 +2,24 @@ spring:
   application:
     name: payment-service
 
+  datasource:
+    url: jdbc:postgresql://localhost:${PAYPULSE_DB_PORT:5434}/${PAYPULSE_DB_NAME:paypulse_payment_db}
+    username: ${PAYPULSE_DB_USERNAME:paypulse_app}
+    password: ${PAYPULSE_DB_PASSWORD}
+
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 5000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
 server:
   port: 8081
 
