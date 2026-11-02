@@ -1,8 +1,8 @@
 
 package com.paypulse.payment.payment.dto;
 
-import com.paypulse.payment.payment.Payment;
-import com.paypulse.payment.payment.PaymentStatus;
+import com.paypulse.payment.payment.entity.Payment;
+import com.paypulse.payment.payment.entity.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;

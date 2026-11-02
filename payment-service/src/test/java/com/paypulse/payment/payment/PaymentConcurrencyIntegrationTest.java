@@ -6,6 +6,8 @@ import com.paypulse.payment.merchant.entity.MerchantRole;
 import com.paypulse.payment.merchant.repository.MerchantRepository;
 import com.paypulse.payment.payment.dto.CreatePaymentRequest;
 
+import com.paypulse.payment.payment.repository.PaymentRepository;
+import com.paypulse.payment.payment.service.PaymentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_DB: ${PAYPULSE_DB_NAME:-paypulse_payment_db}
       POSTGRES_USER: ${PAYPULSE_DB_USERNAME:-paypulse_app}
-      POSTGRES_PASSWORD: ${PAYPULSE_DB_PASSWORD:?Set PAYPULSE_DB_PASSWORD in .env}
+      POSTGRES_PASSWORD: ${PAYPULSE_DB_PASSWORD:?Set PAYPULSE_DB_PASSWORD}
 
     ports:
       - "127.0.0.1:${PAYPULSE_DB_PORT:-5434}:5432"
@@ -24,5 +24,30 @@ services:
       timeout: 5s
       retries: 5
 
+  bank-postgres:
+    image: postgres:16
+    container_name: paypulse-bank-db
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${PAYPULSE_BANK_DB_NAME:-paypulse_bank_db}
+      POSTGRES_USER: ${PAYPULSE_BANK_DB_USERNAME:-paypulse_bank}
+      POSTGRES_PASSWORD: ${PAYPULSE_BANK_DB_PASSWORD:?Set PAYPULSE_BANK_DB_PASSWORD}
+
+    ports:
+      - "127.0.0.1:${PAYPULSE_BANK_DB_PORT:-5435}:5432"
+
+    volumes:
+      - bank_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   payment_postgres_data:
+  bank_postgres_data:

@@ -86,6 +86,13 @@ public class GlobalExceptionHandler {
         return problem(HttpStatus.BAD_REQUEST, message);
     }
 
+    @ExceptionHandler(PaymentStateConflictException.class)
+    public ProblemDetail handlePaymentStateConflict(
+            PaymentStateConflictException ex) {
+
+        return problem(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
     private ProblemDetail problem(
             HttpStatus status,
             String message

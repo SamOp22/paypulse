@@ -1,11 +1,12 @@
 
 package com.paypulse.payment.payment;
 
-import com.paypulse.payment.auth.JwtService;
+import com.paypulse.payment.auth.service.JwtService;
 import com.paypulse.payment.merchant.entity.Merchant;
 import com.paypulse.payment.merchant.entity.MerchantRole;
 import com.paypulse.payment.merchant.repository.MerchantRepository;
 
+import com.paypulse.payment.payment.repository.PaymentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

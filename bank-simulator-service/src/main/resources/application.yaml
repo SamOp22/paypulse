@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: bank-simulator-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:${PAYPULSE_BANK_DB_PORT:5435}/${PAYPULSE_BANK_DB_NAME:paypulse_bank_db}
+    username: ${PAYPULSE_BANK_DB_USERNAME:paypulse_bank}
+    password: ${PAYPULSE_BANK_DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8082
+  address: ${BANK_BIND_ADDRESS:127.0.0.1}
+
+app:
+  bank:
+    internal-api-key: ${PAYPULSE_BANK_API_KEY}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

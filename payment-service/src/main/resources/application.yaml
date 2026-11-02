@@ -3,6 +3,11 @@ app:
     issuer: paypulse-payment-service
     secret-base64: ${PAYPULSE_JWT_SECRET}
     access-token-minutes: 30
+  bank:
+    base-url: ${PAYPULSE_BANK_URL:http://127.0.0.1:8082}
+    internal-api-key: ${PAYPULSE_BANK_API_KEY}
+    connect-timeout-ms: 500
+    read-timeout-ms: 800
 
 spring:
   application:
