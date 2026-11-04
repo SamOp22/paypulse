@@ -68,5 +68,8 @@ to the platform.
 
 Step 1: Payment Service initialization.
 
+Step 2: Merchant model
+
+Step 3: Bank Model
 
 
